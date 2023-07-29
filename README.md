@@ -1,6 +1,6 @@
 <h1 align="center">国家电网电力获取</h1>
 <p align="center">
-<img src="assets/202307291641084-16906224463663.png" alt="mini-graph-card" width="400">
+<img src="assets/202307291641084.png" alt="mini-graph-card" width="400">
 </p>
 
 
