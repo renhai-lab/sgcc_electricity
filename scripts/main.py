@@ -40,7 +40,7 @@ def main():
     schedule.every().day.at(JOB_START_TIME).do(run_task, fetcher, updator)
 
     if datetime.now().time() < datetime.strptime(JOB_START_TIME, "%H:%M").time():
-        logging.info(f"此次为首次运行，当前时间早于 JOB_START_TIME: {JOB_START_TIME}，等待{JOB_START_TIME}秒再执行！")
+        logging.info(f"此次为首次运行，当前时间早于 JOB_START_TIME: {JOB_START_TIME}，{JOB_START_TIME}再执行！")
         schedule.every().day.at(JOB_START_TIME).do(run_task, fetcher, updator)
     else:
         logging.info(f"此次为首次运行，等待时间(FIRST_SLEEP_TIME)为{FIRST_SLEEP_TIME}秒，可在const.py中设置")
