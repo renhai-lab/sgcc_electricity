@@ -234,12 +234,11 @@ type: custom:mini-graph-card
 entities:
   - entity: sensor.last_electricity_usage_entity
     name: 国网每日用电量
-    aggregate_func: max
+    aggregate_func: first
     show_state: true
     show_points: true
 group_by: date
 hour24: true
-aggregate_func: first
 hours_to_show: 240
 ```
 
