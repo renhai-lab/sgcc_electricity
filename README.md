@@ -38,7 +38,8 @@
 2. 创建项目文件夹
 
    ```bash
-   mkdir sgcc_electricity & cd sgcc_electricity 
+   mkdir sgcc_electricity
+   cd sgcc_electricity 
    ```
 
 3. 创建环境变量文件
@@ -123,8 +124,8 @@
 1. 克隆仓库
 
    ```bash
-   git clone https://github.com/renhaiidea/sgcc_electricity.git \
-   & cd sgcc_electricity
+   git clone https://github.com/renhaiidea/sgcc_electricity.git
+   cd sgcc_electricity
    ```
 
 2. 参考sample.env编写.env文件
@@ -164,7 +165,6 @@
 # 文件中只能有一个template
 template:
   # 参考文档： https://www.home-assistant.io/integrations/template
-	# trigger为原始sensor，实际请使用sensor中的实体。
   - trigger:
       - platform: event
         event_type: "state_changed"
