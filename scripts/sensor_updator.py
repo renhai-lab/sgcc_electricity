@@ -38,7 +38,7 @@ class SensorUpdator:
                 "state": sensorState,
                 "attributes": {
                     "present_date": present_date,
-                    "last_updated": present_date, # self.last_updated,
+                    "last_updated": self.last_updated,
                     "unit_of_measurement": sensorUnit
                 }
             }
