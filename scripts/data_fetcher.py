@@ -41,13 +41,13 @@ class DataFetcher:
             logging.info(f"集合: {collection_name} 创建成功")
         except:
             self.collection = self.db[collection_name]
-            logging.warning("集合已存在")
+            logging.debug("集合: {collection_name} 集合已存在")
 
         try:
             self.collection.create_index([('date', pymongo.DESCENDING)], unique=True)
-            logging.info(f"创建索引成功")
+            logging.info(f"创建索引'date'成功")
         except:
-            logging.warning("索引已存在")
+            logging.debug("索引'date'已存在")
 
     def fetch(self):
         """the entry, only retry logic here """
