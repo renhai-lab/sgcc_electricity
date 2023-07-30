@@ -1,7 +1,8 @@
 <h1 align="center">国家电网电力获取</h1>
 <p align="center">
-<img src="assets/202307291641084-16906224463663.png" alt="mini-graph-card" width="400">
+<img src="assets/image-20230730135540291.png" alt="mini-graph-card" width="400">
 </p>
+
 
 
 
@@ -226,17 +227,20 @@ template:
 
 ### 3.（可选）ha内数据展示 [mini-graph-card](https://github.com/kalkih/mini-graph-card) 实现效果
 
-![202307291641084.png](assets%2F202307291641084.png)
+![image-20230730135540291](assets/image-20230730135540291.png)
 
 ```yaml
 type: custom:mini-graph-card
 entities:
   - entity: sensor.last_electricity_usage_entity
-    name: 国网查询每日用电量
+    name: 国网每日用电量
     aggregate_func: max
+    show_state: true
+    show_points: true
 group_by: date
 hour24: true
-hours_to_show: 125
+aggregate_func: first
+hours_to_show: 240
 ```
 
 ### 4.（可选）配合用电阶梯，实现实时电价。

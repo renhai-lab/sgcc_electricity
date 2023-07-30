@@ -14,6 +14,7 @@ class SensorUpdator:
         self.token = token
         self.last_updated = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f%z")
 
+
     def update(self, sensorName: str, present_date: str or None, sensorState: float, sensorUnit: str):
         """
         Update the sensor state
@@ -23,6 +24,9 @@ class SensorUpdator:
         :param sensorUnit: 传感器的单位
         :return:
         """
+
+
+
         token = os.getenv("SUPERVISOR_TOKEN") if self.base_url == SUPERVISOR_URL else self.token
         headers = {
             "Content-Type": "application-json",
@@ -34,7 +38,7 @@ class SensorUpdator:
                 "state": sensorState,
                 "attributes": {
                     "present_date": present_date,
-                    "last_updated": self.last_updated,
+                    "last_updated": present_date, # self.last_updated,
                     "unit_of_measurement": sensorUnit
                 }
             }
@@ -47,11 +51,13 @@ class SensorUpdator:
                     "unit_of_measurement": sensorUnit
                 }
             }
+
         url = self.base_url + API_PATH + sensorName # /api/states/<entity_id>
 
         try:
             response = requests.post(url, json=request_body, headers=headers)
-            logging.info(
+            logging.debug(
                 f"Homeassistant REST API invoke, POST on {url}. response[{response.status_code}]: {response.content}")
+            logging.info(f"Homeassistant sensor {sensorName} state updated: {sensorState}{sensorUnit}")
         except Exception as e:
             logging.error(f"Homeassistant REST API invoke failed, reason is {e}")
