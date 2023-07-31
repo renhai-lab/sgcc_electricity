@@ -25,30 +25,59 @@ class DataFetcher:
         self._password = password
         self._ocr = ddddocr.DdddOcr(show_ad=False)
         self._chromium_version = self._get_chromium_version()
-        MONGO_URL = os.getenv("MONGO_URL")
-        DB_NAME = os.getenv("DB_NAME")
-        self.client = pymongo.MongoClient(MONGO_URL)
-        self.db = self.client[DB_NAME]
+
+        # 获取 ENABLE_DATABASE_STORAGE 的值，默认为 False
+        enable_database_storage = os.getenv("ENABLE_DATABASE_STORAGE", "false").lower() == "true"
+
+        if enable_database_storage:
+            # 将数据存储到数据库
+            logging.debug("enable_database_storage为true，将会到数据库")
+            test_mongodb_connection(self)
+            DB_NAME = os.getenv("DB_NAME")
+            self.db = self.client[DB_NAME]
+        else:
+            # 将数据存储到其他介质，如文件或内存
+            self.client = None
+            self.db = None
+            logging.debug("enable_database_storage为false，不会储存到数据库")
+
         self.DRIVER_IMPLICITY_WAIT_TIME = int(os.getenv("DRIVER_IMPLICITY_WAIT_TIME"))
         self.RETRY_TIMES_LIMIT = int(os.getenv("RETRY_TIMES_LIMIT"))
         self.LOGIN_EXPECTED_TIME = int(os.getenv("LOGIN_EXPECTED_TIME"))
         self.RETRY_WAIT_TIME_OFFSET_UNIT = int(os.getenv("RETRY_WAIT_TIME_OFFSET_UNIT"))
 
+    def test_mongodb_connection(self):
+        """测试数据库连接情况"""
+        try:
+            MONGO_URL = os.getenv("MONGO_URL")
+            # 创建 MongoDB 客户端
+            self.client = pymongo.MongoClient(MONGO_URL)
+
+            # 检查连接是否可用
+            client.admin.command('ping')
+
+            logging.info("MongoDB connection test successful")
+        except Exception as e:
+            logging.error("Failed to connect to MongoDB: " + str(e))
+
     def create_db(self, user_id):
-        collection_name = f"electricity_daily_usage_{user_id}"
-        try:
-            self.collection = self.db.create_collection(collection_name)
-            logging.info(f"集合: {collection_name} 创建成功")
-        except:
-            self.collection = self.db[collection_name]
-            logging.debug("集合: {collection_name} 集合已存在")
+        """创建数据库和data索引"""
+        if self.client is not None:
+            collection_name = f"electricity_daily_usage_{user_id}"
+            try:
+                self.collection = self.db.create_collection(collection_name)
+                logging.info(f"集合: {collection_name} 创建成功")
+            except:
+                self.collection = self.db[collection_name]
+                logging.debug("集合: {collection_name} 集合已存在")
 
-        try:
-            self.collection.create_index([('date', pymongo.DESCENDING)], unique=True)
-            logging.info(f"创建索引'date'成功")
-        except:
-            logging.debug("索引'date'已存在")
-
+            try:
+                self.collection.create_index([('date', pymongo.DESCENDING)], unique=True)
+                logging.info(f"创建索引'date'成功")
+            except:
+                logging.debug("索引'date'已存在")
+        else:
+            logging.debug("无数据库连接，不会储存到数据库")
     def fetch(self):
         """the entry, only retry logic here """
         for retry_times in range(1, self.RETRY_TIMES_LIMIT + 1):
@@ -69,16 +98,15 @@ class DataFetcher:
         driver = self._get_webdriver()
         logging.info("Webdriver initialized.")
 
-
         try:
-
             self._login(driver)
             logging.info(f"Login successfully on {LOGIN_URL}")
 
             user_id_list = self._get_user_ids(driver)
-            for user_id in user_id_list:
-                self.create_db(user_id)
             logging.info(f"get all user id: {user_id_list}")
+
+            for user_id in user_id_list:
+                self.create_db(user_id) # 创建数据库
 
             balance_list = self._get_electric_balances(driver, user_id_list)  #
             ### get data except electricity charge balance
@@ -306,12 +334,14 @@ class DataFetcher:
             day = i.find_element(By.XPATH, "td[1]/div").text
             usage = i.find_element(By.XPATH, "td[2]/div").text
             dic = {'date': day, 'usage': float(usage)}
-            try:
-                self.collection.insert_one(dic)
-                logging.info(f"{day}的用电量{usage}KW已经成功存入数据库")
-            except:
-                logging.debug(f"{day}的用电量存入数据库失败,可能已经存在")
-
+            if self.client is not None:
+                try:
+                    self.collection.insert_one(dic)
+                    logging.info(f"{day}的用电量{usage}KWh已经成功存入数据库")
+                except:
+                    logging.debug(f"{day}的用电量存入数据库失败,可能已经存在")
+            else:
+                logging.info(f"{day}的用电量{usage}KWh")
     @staticmethod
     def _click_button(driver, button_search_type, button_search_key):
         '''wrapped click function, click only when the element is clickable'''
