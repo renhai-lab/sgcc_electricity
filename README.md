@@ -23,7 +23,7 @@
 
 1. 可选，近三十天每日用电量数据（mongodb数据库），例如：
 
-   <img src="assets/image-20230731094609016.png" align="left" alt="image-20230731094609016" style="zoom:50% ;" />
+   <img src="assets/image-20230731111508970.png" align="left" alt="image-20230731094609016" style="zoom:50% ;" />
 
 
 ## 一、适用范围
@@ -70,7 +70,8 @@
    PASSWORD="xxxx" # 修改为自己的登录密码
    
    # 数据库配置
-   ENABLE_DATABASE_STORAGE=true # or false 不启用数据库储存每日用电量数据。
+   ENABLE_DATABASE_STORAGE=True # or False 不启用数据库储存每日用电量数据。
+   # 数据库可以填已有的mongodb数据库
    MONGO_URL="mongodb://USERNAME:PASSWORD@localhost:27017/" # 数据库地址 修改USERNAME PASSWORD和localhost
    DB_NAME="homeassistant" # 数据库名，默认为homeassistant
    # COLLECTION_NAME默认为electricity_daily_usage_{国网用户id}，不支持修改。
@@ -249,7 +250,7 @@ template:
 
 结合mini-graph-card](https://github.com/kalkih/mini-graph-card) 和[mushroom](https://github.com/piitaya/lovelace-mushroom)实现效果：
 
-<img src="assets/image-20230731100641330.png" alt="image-20230731100641330" style="zoom:50%;" />
+<img src="assets/image-20230731111757106.png" alt="image-20230731111757106.png" style="zoom: 33%;" />
 
 ```yaml
 type: custom:mini-graph-card
@@ -320,7 +321,7 @@ sensor:
 
 > tip：打开ha>仪表盘>能源>添加用电数据>实时电价实体-选择real_time_electricity_price。
 
-<img src="assets/image-20230731102133426.png" alt="image-20230731102133426" style="zoom:50%;" />
+<img src="assets/image-20230731111953612.png" alt="image-20230731111953612.png" style="zoom: 33%;" />
 
 ### 5）电量通知
 
