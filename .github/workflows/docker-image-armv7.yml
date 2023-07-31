@@ -1,16 +1,16 @@
 name: Docker Image CI
 
-#on:
-#  push:
-#    branches: [ "main" ]
-#  pull_request:
-#    branches: [ "main" ]
 on:
   push:
-    paths:
-      - 'scripts/**'
-      - 'Dockerfile'
-      - 'requirements.txt'
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+#on:
+#  push:
+#    paths:
+#      - 'scripts/**'
+#      - 'Dockerfile'
+#      - 'requirements.txt'
 jobs:
 
   build:
@@ -32,6 +32,6 @@ jobs:
         DOCKER_IMAGE=renhai/sgcc_electricity
         VERSION=$(git describe --tags --abbrev=0)
         DOCKER_TAG=$DOCKER_IMAGE:$VERSION
-        docker buildx build --platform $PLATFORMS -t $DOCKER_TAG --file Dockerfile-for-github-action --push .
+        docker buildx build --platform $PLATFORMS -t $DOCKER_TAG --file Dockerfile-for-github-action-armv7 --push .
         docker tag $DOCKER_TAG $DOCKER_IMAGE:latest
         docker push $DOCKER_TAG
