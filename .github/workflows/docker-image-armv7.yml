@@ -31,6 +31,4 @@ jobs:
       run: |
         PLATFORMS=linux/arm/v7
         DOCKER_IMAGE=renhai/sgcc_electricity
-        docker buildx build --platform $PLATFORMS -t $DOCKER_IMAGE:latest --file Dockerfile-for-github-action-armv7 --push .
-        docker tag $DOCKER_IMAGE:latest $DOCKER_IMAGE:1.0
-        docker push $DOCKER_IMAGE:1.0
+        docker buildx build --platform $PLATFORMS -t $DOCKER_IMAGE:latest -t $DOCKER_IMAGE:1.0 --file Dockerfile-for-github-action-armv7 --push .
