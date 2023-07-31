@@ -362,4 +362,6 @@ class DataFetcher:
     @staticmethod
     def _get_chromium_version():
         result = str(subprocess.check_output(["chromium", "--product-version"]))
-        return re.findall(r"(\d*)\.", result)[0]
+        version = re.findall(r"(\d*)\.", result)[0]
+        logging.info(f"chromium-driver version is {version}")
+        return int(version)
