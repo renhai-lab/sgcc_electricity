@@ -32,5 +32,5 @@ jobs:
       run: |
         PLATFORMS=linux/arm64,linux/amd64
         DOCKER_IMAGE=renhai/sgcc_electricity
-        docker buildx build --platform $PLATFORMS -t $DOCKER_IMAGE:latest -t $DOCKER_IMAGE:1.0 --file Dockerfile-for-github-action --push .
+        docker buildx build --platform $PLATFORMS -t $DOCKER_IMAGE:latest -t $DOCKER_IMAGE:1.2 --file Dockerfile-for-github-action --push .
 
