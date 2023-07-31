@@ -15,7 +15,7 @@ RUN apt-get --allow-releaseinfo-change update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN cd /tmp \
-    && pip config --global set global.index-url “https://www.piwheels.org/simple https://pypi.python.org/simple” \
+    && pip config --global set global.extra-index-url https://www.piwheels.org/simple \
     && python3 -m pip install --upgrade pip \
     && curl -O -L https://github.com/nknytk/built-onnxruntime-for-raspberrypi-linux/raw/master/wheels/buster/onnxruntime-1.8.1-cp39-cp39-linux_armv7l.whl \
      -O -L https://www.piwheels.org/simple/numpy/numpy-1.19.3-cp39-cp39-linux_armv7l.whl \
