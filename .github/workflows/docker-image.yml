@@ -29,9 +29,6 @@ jobs:
     - name: Build and push Docker image
       run: |
         PLATFORMS=linux/arm64,linux/amd64
-        DOCKER_IMAGE=renhai/sgcc_electricity
-        VERSION=$(git describe --tags --abbrev=0)
-        DOCKER_TAG=$DOCKER_IMAGE:$VERSION
-        docker buildx build --platform $PLATFORMS -t $DOCKER_TAG --file Dockerfile-for-github-action --push .
-        docker tag $DOCKER_TAG $DOCKER_IMAGE:latest
-        docker push $DOCKER_IMAGE:latest
+        DOCKER_IMAGE=renhai/sgcc_electricity:latest
+        docker buildx build --platform $PLATFORMS -t $DOCKER_IMAGE --file Dockerfile-for-github-action --push .
+
