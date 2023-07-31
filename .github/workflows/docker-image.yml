@@ -1,18 +1,18 @@
 name: Docker Image CI
 
-#on:
-#  push:
-#    branches: [ "main" ]
+on:
+ push:
+   branches: [ "main" ]
 #  pull_request:
 #    branches: [ "main" ]
-on:
-  push:
-    paths:
-      - 'scripts/**'
-      - 'Dockerfile-for-github-action'
-      - 'requirements.txt'
-      - 'example.env'
-      - '.github/workflows/docker-image.yml'
+# on:
+#   push:
+#     paths:
+#       - 'scripts/**'
+#       - 'Dockerfile-for-github-action'
+#       - 'requirements.txt'
+#       - 'example.env'
+#       - '.github/workflows/docker-image.yml'
 jobs:
 
   build:
