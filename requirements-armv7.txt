@@ -2,7 +2,6 @@ requests==2.31.0
 selenium~=4.7.2
 schedule==1.1.0
 Pillow==9.2.0
-opencv-python-headless~=4.6.0.66
 # ddddocr==1.4.7
 undetected_chromedriver==3.1.6
 # pypushdeer~=0.0.3
