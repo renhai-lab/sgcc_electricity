@@ -18,8 +18,8 @@ RUN cd /tmp \
     && pip config --global set global.index-url https://www.piwheels.org/simple \
     && python3 -m pip install --upgrade pip \
     && curl -O -L https://github.com/nknytk/built-onnxruntime-for-raspberrypi-linux/raw/master/wheels/buster/onnxruntime-1.8.1-cp39-cp39-linux_armv7l.whl \
-     -O -L https://www.piwheels.org/simple/numpy/numpy-1.19.3-cp39-cp39-linux_armv7l.whl#sha256=faf3849cab6fa2c71b7626624027004af24200c60656abd4c41fcd3edaadbb61 \
-     -O -L https://www.piwheels.org/simple/opencv-python-headless/opencv_python_headless-4.6.0.66-cp39-cp39-linux_armv7l.whl#sha256=dfae669909d3b96416202844aa38f697aa81c84d17eda0324720c512c3ce0bbd \
+     -O -L https://www.piwheels.org/simple/numpy/numpy-1.19.3-cp39-cp39-linux_armv7l.whl \
+     -O -L https://www.piwheels.org/simple/opencv-python-headless/opencv_python_headless-4.6.0.66-cp39-cp39-linux_armv7l.whl \
     && PIP_ROOT_USER_ACTION=ignore pip install onnxruntime-1.8.1-cp39-cp39-linux_armv7l.whl numpy-1.19.3-cp39-cp39-linux_armv7l.whl opencv_python_headless-4.6.0.66-cp39-cp39-linux_armv7l.whl \
     && PIP_ROOT_USER_ACTION=ignore pip install \
     --disable-pip-version-check \
