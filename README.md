@@ -1,7 +1,10 @@
 # ⚡️国家电网电力获取 
 
 [![Docker Image CI](assets/badge.svg)](https://github.com/renhaiidea/sgcc_electricity/actions/workflows/docker-image.yml)
-
+[![Docker Image CI armv7](https://github.com/renhaiidea/sgcc_electricity/actions/workflows/docker-image-armv7.yml/badge.svg)](https://github.com/renhaiidea/sgcc_electricity/actions/workflows/docker-image-armv7.yml)
+ <a href="https://hub.docker.com/renhai/sgcc_electricity">
+    <img src="https://img.shields.io/docker/pulls/renhai/sgcc_electricity?color=%2348BB78&logo=docker&label=pulls" alt="Downloads" />
+  </a>
 <p align="center">
 
 <img src="assets/image-20230730135540291.png" alt="mini-graph-card" width="400">
