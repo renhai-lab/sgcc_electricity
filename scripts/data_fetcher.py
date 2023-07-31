@@ -54,7 +54,7 @@ class DataFetcher:
             self.client = pymongo.MongoClient(MONGO_URL)
 
             # 检查连接是否可用
-            client.admin.command('ping')
+            self.client.admin.command('ping')
 
             logging.info("MongoDB connection test successful")
         except Exception as e:
