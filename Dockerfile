@@ -13,7 +13,8 @@ RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list \
     && apt-get install -y --no-install-recommends jq chromium chromium-driver tzdata\
     && ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && dpkg-reconfigure --frontend noninteractive tzdata \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*  \
+    && apt-get clean
 
 RUN cd /tmp \
     && pip config --global set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple \
@@ -23,7 +24,10 @@ RUN cd /tmp \
     --disable-pip-version-check \
     --no-cache-dir \
     -r requirements.txt \
-    && rm -rf /tmp/*
+    && rm -rf /tmp/* \
+    && pip cache purge \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/log/*
 
 ENV LANG C.UTF-8
 
