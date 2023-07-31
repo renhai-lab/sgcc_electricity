@@ -6,7 +6,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 
 COPY scripts/* /app/
-COPY ./requirements.txt /tmp/requirements.txt
+COPY ./requirements-armv7.txt /tmp/requirements-armv7.txt
 
 RUN apt-get --allow-releaseinfo-change update \
     && apt-get install -y --no-install-recommends jq chromium curl chromium-driver tzdata \
