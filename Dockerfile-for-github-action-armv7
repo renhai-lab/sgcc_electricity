@@ -10,7 +10,7 @@ COPY wheel/* /tmp/
 COPY ./requirements.txt /tmp/requirements.txt
 
 RUN apt-get --allow-releaseinfo-change update \
-    && apt-get install -y --no-install-recommends jq chromium chromium-driver tzdata\
+    && apt-get install -y --no-install-recommends jq chromium curl chromium-driver tzdata\
     && ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && dpkg-reconfigure --frontend noninteractive tzdata \
     && rm -rf /var/lib/apt/lists/*
