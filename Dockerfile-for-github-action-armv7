@@ -10,6 +10,7 @@ COPY ./requirements-armv7.txt /tmp/requirements-armv7.txt
 
 RUN apt-get --allow-releaseinfo-change update \
     && apt-get install -y --no-install-recommends jq chromium curl chromium-driver tzdata \
+    && libgomp1 libwebpmux3 libwebpdemux2 liblcms2-2 libopenjp2-7 \
     && ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && dpkg-reconfigure --frontend noninteractive tzdata \
     && rm -rf /var/lib/apt/lists/*
