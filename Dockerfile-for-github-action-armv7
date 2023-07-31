@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster as build
+FROM python:3.9-slim-buster as build
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -9,15 +9,16 @@ COPY scripts/* /app/
 COPY ./requirements.txt /tmp/requirements.txt
 
 RUN apt-get --allow-releaseinfo-change update \
-    && apt-get install -y --no-install-recommends jq chromium curl chromium-driver tzdata\
+    && apt-get install -y --no-install-recommends jq chromium curl chromium-driver tzdata libwebpmux3 libwebpdemux2 liblcms2-2 libopenjp2-7 \
     && ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && dpkg-reconfigure --frontend noninteractive tzdata \
     && rm -rf /var/lib/apt/lists/*
 
 RUN cd /tmp \
+    && pip config --global set global.extra-index-url https://www.piwheels.org/simple \
     && python3 -m pip install --upgrade pip \
-    && curl -O -L https://github.com/nknytk/built-onnxruntime-for-raspberrypi-linux/raw/master/wheels/buster/onnxruntime-1.8.1-cp38-cp38-linux_armv7l.whl \
-    && PIP_ROOT_USER_ACTION=ignore pip install onnxruntime-1.8.1-cp38-cp38-linux_armv7l.whl \
+    && curl -O -L https://github.com/nknytk/built-onnxruntime-for-raspberrypi-linux/raw/master/wheels/buster/onnxruntime-1.8.1-cp39-cp39-linux_armv7l.whl \
+    && PIP_ROOT_USER_ACTION=ignore pip install onnxruntime-1.8.1-cp39-cp39-linux_armv7l.whl \
     && PIP_ROOT_USER_ACTION=ignore pip install \
     --disable-pip-version-check \
     --no-cache-dir \
