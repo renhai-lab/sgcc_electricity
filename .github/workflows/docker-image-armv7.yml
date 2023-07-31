@@ -1,17 +1,18 @@
 name: Docker Image CI armv7
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 #on:
 #  push:
-#    paths:
-#      - 'scripts/**'
-#      - 'Dockerfile'
-#      - 'requirements.txt'
-#      - '.github/workflows/docker-image-armv7.yml'
+#    branches: [ "main" ]
+#  pull_request:
+#    branches: [ "main" ]
+on:
+  push:
+    paths:
+      - 'scripts/**'
+      - 'Dockerfile-for-github-action-armv7'
+      - 'example.env'
+      - 'requirements-armv7.txt'
+      - '.github/workflows/docker-image-armv7.yml'
 jobs:
 
   build:
@@ -31,4 +32,4 @@ jobs:
       run: |
         PLATFORMS=linux/arm/v7
         DOCKER_IMAGE=renhai/sgcc_electricity
-        docker buildx build --platform $PLATFORMS -t $DOCKER_IMAGE:latest -t $DOCKER_IMAGE:1.0 --file Dockerfile-for-github-action-armv7 --push .
+        docker buildx build --platform $PLATFORMS -t $DOCKER_IMAGE:armv7-latest -t $DOCKER_IMAGE:armv7-1.0 --file Dockerfile-for-github-action-armv7 --push .

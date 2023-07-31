@@ -111,7 +111,7 @@
      app:
        env_file:
          - .env
-       image: renhai/sgcc_electricity:latest
+       image: renhai/sgcc_electricity:latest # armv7 32架构的镜像为armv7-latest
        container_name: sgcc_electricity
        network_mode: bridge
        environment:

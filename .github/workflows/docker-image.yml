@@ -9,8 +9,9 @@ on:
   push:
     paths:
       - 'scripts/**'
-      - 'Dockerfile'
+      - 'Dockerfile-for-github-action'
       - 'requirements.txt'
+      - 'example.env'
       - '.github/workflows/docker-image.yml'
 jobs:
 
