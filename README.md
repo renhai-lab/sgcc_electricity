@@ -1,9 +1,11 @@
-<h1 align="center">⚡️国家电网电力获取</h1>
+# ⚡️国家电网电力获取 
+
+[![Docker Image CI](assets/badge.svg)](https://github.com/renhaiidea/sgcc_electricity/actions/workflows/docker-image.yml)
+
 <p align="center">
+
 <img src="assets/image-20230730135540291.png" alt="mini-graph-card" width="400">
 </p>
-
-
 
  
 

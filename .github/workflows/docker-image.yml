@@ -11,6 +11,7 @@ on:
       - 'scripts/**'
       - 'Dockerfile'
       - 'requirements.txt'
+      - '.github/workflows/docker-image.yml'
 jobs:
 
   build:
