@@ -32,6 +32,6 @@ jobs:
         DOCKER_IMAGE=renhai/sgcc_electricity
         VERSION=$(git describe --tags --abbrev=0)
         DOCKER_TAG=$DOCKER_IMAGE:$VERSION
-        docker buildx build --platform $PLATFORMS -t $DOCKER_TAG --file Dockerfile-for-github-action --push .
-        docker tag $DOCKER_TAG $DOCKER_IMAGE:latest
-        docker push $DOCKER_TAG
+        docker buildx build --platform $PLATFORMS -t $DOCKER_TAG --file Dockerfile-for-github-action-armv7 --push .
+        docker tag $DOCKER_IMAGE:$DOCKER_TAG $DOCKER_IMAGE:latest
+        docker push $DOCKER_IMAGE:latest
