@@ -23,8 +23,7 @@
 
 1. 可选，近三十天每日用电量数据（mongodb数据库），例如：
 
-   <img src="assets/image-20230731111508970.png" align="left" alt="image-20230731094609016" style="zoom:50% ;" />
-
+   ![image-20230731094609016](assets/image-20230731111508970.png)
 
 ## 一、适用范围
 
