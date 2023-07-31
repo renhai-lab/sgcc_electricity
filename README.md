@@ -204,7 +204,7 @@ template:
         event_data:
           entity_id: sensor.last_electricity_usage
     sensor:
-      - name: 最近一天用电量
+      - name: last_electricity_usage_entity
         unique_id: last_electricity_usage_entity
         state: "{{ states('sensor.last_electricity_usage') }}"
         attributes:
