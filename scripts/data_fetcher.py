@@ -124,11 +124,12 @@ class DataFetcher:
     def _get_webdriver(self):
         chrome_options = Options()
         chrome_options.add_argument('--incognito')
-        chrome_options.add_argument('--window-size=4000,1600')
+        chrome_options.add_argument("--start-maximized")
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-gpu')
-        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument(f'--disable-dev-shm-usage')
+        chrome_options.add_argument("--headless=new")
         driver = uc.Chrome(driver_executable_path="/usr/bin/chromedriver", options=chrome_options, version_main=self._chromium_version)
         driver.implicitly_wait(self.DRIVER_IMPLICITY_WAIT_TIME)
         return driver
