@@ -22,14 +22,14 @@ RUN cd /tmp \
     && curl -O -L https://github.com/nknytk/built-onnxruntime-for-raspberrypi-linux/raw/master/wheels/buster/onnxruntime-1.8.1-cp39-cp39-linux_armv7l.whl \
      -O -L https://www.piwheels.org/simple/numpy/numpy-1.25.1-cp39-cp39-linux_armv7l.whl \
      -O -L https://www.piwheels.org/simple/opencv-python-headless/opencv_python_headless-4.5.3.56-cp39-cp39-linux_armv7l.whl \
-    && PIP_ROOT_USER_ACTION=ignore pip install onnxruntime-1.8.1-cp39-cp39-linux_armv7l.whl \
+    && PIP_ROOT_USER_ACTION=ignore pip3 install onnxruntime-1.8.1-cp39-cp39-linux_armv7l.whl \
     numpy-1.25.1-cp39-cp39-linux_armv7l.whl \
     opencv_python_headless-4.5.3.56-cp39-cp39-linux_armv7l.whl \
-    && PIP_ROOT_USER_ACTION=ignore pip install \
+    && PIP_ROOT_USER_ACTION=ignore pip3 install \
     --disable-pip-version-check \
     --no-cache-dir \
     -r requirements-armv7.txt \
-    && pip install ddddocr==1.4.7 --no-deps \
+    && pip3 install ddddocr==1.4.7 \
     && rm -rf /tmp/* \
     && pip cache purge \
     && rm -rf /var/lib/apt/lists/* \
