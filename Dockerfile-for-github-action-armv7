@@ -6,7 +6,6 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 
 COPY scripts/* /app/
-COPY wheel/* /tmp/
 COPY ./requirements.txt /tmp/requirements.txt
 
 RUN apt-get --allow-releaseinfo-change update \
