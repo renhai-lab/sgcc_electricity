@@ -1,18 +1,18 @@
 name: Docker Image CI armv7
 
-#on:
-#  push:
-#    branches: [ "main" ]
-#  pull_request:
-#    branches: [ "main" ]
 on:
   push:
-    paths:
-      - 'scripts/**'
-      - 'Dockerfile-for-github-action-armv7'
-      - 'example.env'
-      - 'requirements-armv7.txt'
-      - '.github/workflows/docker-image-armv7.yml'
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+#on:
+#  push:
+#    paths:
+#      - 'scripts/**'
+#      - 'Dockerfile-for-github-action-armv7'
+#      - 'example.env'
+#      - 'requirements-armv7.txt'
+#      - '.github/workflows/docker-image-armv7.yml'
 jobs:
 
   build:
