@@ -1,4 +1,4 @@
-FROM python:3.9-slim-buster as build
+FROM python:3.9-slim-bullseye as build
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -16,7 +16,7 @@ RUN apt-get --allow-releaseinfo-change update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN cd /tmp \
-    && pip config --global set global.extra-index-url https://www.piwheels.org/simple \
+    && pip config --global set global.index-url https://www.piwheels.org/simple \
     && python3 -m pip install --upgrade pip \
     && curl -O -L https://github.com/nknytk/built-onnxruntime-for-raspberrypi-linux/raw/master/wheels/buster/onnxruntime-1.8.1-cp39-cp39-linux_armv7l.whl \
      -O -L https://www.piwheels.org/simple/numpy/numpy-1.19.3-cp39-cp39-linux_armv7l.whl#sha256=faf3849cab6fa2c71b7626624027004af24200c60656abd4c41fcd3edaadbb61 \
