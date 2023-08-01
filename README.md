@@ -2,7 +2,7 @@
 
 [![Docker Image CI armv7](https://github.com/renhaiidea/sgcc_electricity/actions/workflows/docker-image.yml/badge.svg)](https://github.com/renhaiidea/sgcc_electricity/actions/workflows/docker-image.yml)
 [![Docker Image CI armv7](https://github.com/renhaiidea/sgcc_electricity/actions/workflows/docker-image-armv7.yml/badge.svg?branch=armv7)](https://github.com/renhaiidea/sgcc_electricity/actions/workflows/docker-image-armv7.yml)
-[![Docker Pull](https://img.shields.io/docker/image-size/renhai/sgcc_electricity)](https://hub.docker.com/r/renhai/sgcc_electricity)
+[![Image Size](https://img.shields.io/docker/image-size/renhai/sgcc_electricity)](https://hub.docker.com/r/renhai/sgcc_electricity)
 [![Docker Pull](https://img.shields.io/docker/pulls/renhai/sgcc_electricity?color=%2348BB78&logo=docker&label=pulls)](https://hub.docker.com/r/renhai/sgcc_electricity)
 <p align="center">
 <img src="assets/image-20230730135540291.png" alt="mini-graph-card" width="400">
