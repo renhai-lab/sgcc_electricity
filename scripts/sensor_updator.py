@@ -12,8 +12,6 @@ class SensorUpdator:
     def __init__(self, base_url: str, token: str):
         self.base_url = base_url[:-1] if base_url.endswith("/") else base_url
         self.token = token
-        self.last_updated = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f%z")
-
 
     def update(self, sensorName: str, present_date: str or None, sensorState: float, sensorUnit: str):
         """
@@ -24,21 +22,19 @@ class SensorUpdator:
         :param sensorUnit: 传感器的单位
         :return:
         """
-
-
-
         token = os.getenv("SUPERVISOR_TOKEN") if self.base_url == SUPERVISOR_URL else self.token
         headers = {
             "Content-Type": "application-json",
             "Authorization": "Bearer " + token
 
         }
+        last_updated = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f%z")
         if present_date:
             request_body = {
                 "state": sensorState,
                 "attributes": {
                     "present_date": present_date,
-                    "last_updated": self.last_updated,
+                    "last_updated": last_updated,
                     "unit_of_measurement": sensorUnit
                 }
             }
@@ -47,7 +43,7 @@ class SensorUpdator:
                 "state": sensorState,
                 "unique_id": sensorName,
                 "attributes": {
-                    "last_updated": self.last_updated,
+                    "last_updated": last_updated,
                     "unit_of_measurement": sensorUnit
                 }
             }
