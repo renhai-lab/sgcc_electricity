@@ -31,7 +31,7 @@ class DataFetcher:
 
         if enable_database_storage:
             # 将数据存储到数据库
-            logging.debug("enable_database_storage为true，将会到数据库")
+            logging.debug("enable_database_storage为true，将会储存到数据库")
             self.test_mongodb_connection()
             DB_NAME = os.getenv("DB_NAME")
             self.db = self.client[DB_NAME]
@@ -39,7 +39,7 @@ class DataFetcher:
             # 将数据存储到其他介质，如文件或内存
             self.client = None
             self.db = None
-            logging.debug("enable_database_storage为false，不会储存到数据库")
+            logging.info("enable_database_storage为false，不会储存到数据库")
 
         self.DRIVER_IMPLICITY_WAIT_TIME = int(os.getenv("DRIVER_IMPLICITY_WAIT_TIME"))
         self.RETRY_TIMES_LIMIT = int(os.getenv("RETRY_TIMES_LIMIT"))
