@@ -1,10 +1,5 @@
 name: Docker Image CI armv7
-#
-#on:
-#  push:
-#    branches: [ "armv7" ]
-#  pull_request:
-#    branches: [ "main" ]
+
 on:
   push:
     paths:
@@ -13,10 +8,9 @@ on:
       - 'example.env'
       - 'requirements-armv7.txt'
       - '.github/workflows/docker-image-armv7.yml'
+
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
