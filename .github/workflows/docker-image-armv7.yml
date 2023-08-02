@@ -2,9 +2,9 @@ name: Docker Image CI armv7
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [ "armv7" ]
+#  pull_request:
+#    branches: [ "main" ]
 #on:
 #  push:
 #    paths:
@@ -32,4 +32,4 @@ jobs:
       run: |
         PLATFORMS=linux/arm/v7
         DOCKER_IMAGE=renhai/sgcc_electricity
-        docker buildx build --platform $PLATFORMS -t $DOCKER_IMAGE:armv7-latest -t $DOCKER_IMAGE:armv7-1.1 --file Dockerfile-for-github-action-armv7 --push .
+        docker buildx build --platform $PLATFORMS -t $DOCKER_IMAGE:armv7-latest -t $DOCKER_IMAGE:armv7-1.2 --file Dockerfile-for-github-action-armv7 --push .
