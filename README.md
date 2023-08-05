@@ -142,6 +142,13 @@
    networks:
       sgcc_network:
    ```
+5. 运行
+
+   ```bash
+   docker compose up --build 
+   # 或者后台运行
+   docker compose up -d --build
+   ```
 
 ### 2）方法二：本地自行构建容器
 
