@@ -8,7 +8,7 @@
 <img src="assets/image-20230730135540291.png" alt="mini-graph-card" width="400">
 </p>
 
- 
+
 
 
 本应用可以帮助你将国网的电费、用电量数据接入homeassistant，实现实时追踪家庭用电量情况；并且可以将每日用电量保存到数据库，历史有迹可循。具体提供两类数据：
@@ -74,7 +74,7 @@
    # 数据库配置
    ENABLE_DATABASE_STORAGE=True # or False 不启用数据库储存每日用电量数据。
    # 数据库可以填已有的mongodb数据库
-   MONGO_URL="mongodb://USERNAME:PASSWORD@localhost:27017/" # 数据库地址 修改USERNAME PASSWORD和localhost
+   MONGO_URL="mongodb://USERNAME:PASSWORD@mongo-for-sgcc:27017/" # 数据库地址 修改USERNAME PASSWORD和mongo-for-sgcc和mongo容器名称一致 
    DB_NAME="homeassistant" # 数据库名，默认为homeassistant
    # COLLECTION_NAME默认为electricity_daily_usage_{国网用户id}，不支持修改。
    
@@ -97,10 +97,10 @@
    LOG_LEVEL="INFO" # 例如“DUBUG”可以查看出错情况
    ```
 
-4. 编写docekr-compose.yml文件
+4. 编写docker-compose.yml文件
 
    ```bash
-   vim docekr-compose.yml
+   vim docker-compose.yml
    ```
 
    填入以下内容
@@ -112,9 +112,12 @@
      app:
        env_file:
          - .env
+       depends_on:
+         - mongo
        image: renhai/sgcc_electricity:latest # armv7 32架构的镜像为armv7-latest
        container_name: sgcc_electricity
-       network_mode: bridge
+       networks:
+         sgcc_network:
        environment:
          - SET_CONTAINER_TIMEZONE=true
          - CONTAINER_TIMEZONE=Asia/Shanghai
@@ -126,7 +129,8 @@
        image: mongo:4.4.18
        restart: always
        container_name: mongo-for-sgcc
-       network_mode: bridge
+       networks:
+         sgcc_network:
        environment:
          MONGO_INITDB_ROOT_USERNAME: USERNAME # 修改为自己的用户名
          MONGO_INITDB_ROOT_PASSWORD: PASSWORD # 修改为自己的密码
@@ -134,8 +138,9 @@
          CONTAINER_TIMEZONE: Asia/Shanghai
        volumes:
          - ./db:/data/db
-       ports:
-         - "27017:27017"
+   
+   networks:
+      sgcc_network:
    ```
 
 ### 2）方法二：本地自行构建容器
