@@ -152,8 +152,9 @@
 6. 更新容器
 
    ```bash
-   docker compose pull
-   docker compose up
+   docker compose down # 删除容器
+   docker compose pull # 更新镜像
+   docker compose up # 重新运行
    ```
 ### 2）方法二：本地自行构建容器
 
