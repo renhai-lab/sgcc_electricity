@@ -34,7 +34,7 @@ class DataFetcher:
             logging.debug("enable_database_storage为true，将会储存到数据库")
             self.test_mongodb_connection()
             DB_NAME = os.getenv("DB_NAME")
-            self.db = self.client[DB_NAME]
+            self.db = self.client[DB_NAME] # 创建数据库
         else:
             # 将数据存储到其他介质，如文件或内存
             self.client = None
@@ -60,11 +60,11 @@ class DataFetcher:
         except Exception as e:
             logging.error("Failed to connect to MongoDB: " + str(e))
 
-    def create_db(self, user_id):
+    def create_collection(self, user_id):
         """创建数据库和data索引"""
-        if self.client is not None:
-            collection_name = f"electricity_daily_usage_{user_id}"
+        if self.db is not None:
             try:
+                collection_name = f"electricity_daily_usage_{user_id}"
                 self.collection = self.db.create_collection(collection_name)
                 logging.info(f"集合: {collection_name} 创建成功")
             except:
@@ -76,8 +76,6 @@ class DataFetcher:
                 logging.info(f"创建索引'date'成功")
             except:
                 logging.debug("索引'date'已存在")
-        else:
-            logging.debug("无数据库连接，不会储存到数据库")
     def fetch(self):
         """the entry, only retry logic here """
         for retry_times in range(1, self.RETRY_TIMES_LIMIT + 1):
@@ -106,7 +104,7 @@ class DataFetcher:
             logging.info(f"get all user id: {user_id_list}")
 
             for user_id in user_id_list:
-                self.create_db(user_id) # 创建数据库
+                self.create_collection(user_id) # 创建集合
 
             balance_list = self._get_electric_balances(driver, user_id_list)  #
             ### get data except electricity charge balance
@@ -229,7 +227,7 @@ class DataFetcher:
             last_daily_datetime, last_daily_usage = self._get_yesterday_usage(driver)
 
             # 新增储存30天用电量
-            self._save_daily_usage(driver)
+            self._save_daily_usage(driver, user_id_list[i - 1])
 
             if last_daily_usage is None:
                 logging.error(f"Get daily power consumption for {user_id_list[i - 1]} failed, pass")
@@ -319,7 +317,7 @@ class DataFetcher:
             return None
 
     # 增加储存30天用电量的到mongodb的函数
-    def _save_daily_usage(self, driver):
+    def _save_daily_usage(self, driver, user_id):
         # 30天用电量的按钮
         self._click_button(driver, By.XPATH, "//*[@id='pane-second']/div[1]/label[2]/span[2]")
         # 等待30天用电量的数据出现
@@ -330,13 +328,15 @@ class DataFetcher:
         days_element = driver.find_elements(By.XPATH,
                                             "//*[@id='pane-second']/div[2]/div[2]/div[1]/div[3]/table/tbody/tr")  # 30天的值 列表 2023-05-0511.98
 
+        collection_name = f"electricity_daily_usage_{user_id}"
+        collection = self.db[collection_name]
         for i in days_element:
             day = i.find_element(By.XPATH, "td[1]/div").text
             usage = i.find_element(By.XPATH, "td[2]/div").text
             dic = {'date': day, 'usage': float(usage)}
             if self.client is not None:
                 try:
-                    self.collection.insert_one(dic)
+                    collection.insert_one(dic)
                     logging.info(f"{day}的用电量{usage}KWh已经成功存入数据库")
                 except:
                     logging.debug(f"{day}的用电量存入数据库失败,可能已经存在")
