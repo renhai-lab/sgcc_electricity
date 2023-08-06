@@ -149,7 +149,12 @@
    # 或者后台运行
    docker compose up -d --build
    ```
+6. 更新容器
 
+   ```bash
+   docker compose pull
+   docker compose up
+   ```
 ### 2）方法二：本地自行构建容器
 
 1. 克隆仓库
