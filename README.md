@@ -213,7 +213,7 @@ template:
       - name: electricity_charge_balance_entity
         unique_id: electricity_charge_balance_entity
         state: "{{ states('sensor.electricity_charge_balance') }}"
-        state_class: measurement
+        state_class: total
         unit_of_measurement: "CNY"
         device_class: monetary
         
@@ -229,7 +229,7 @@ template:
         attributes:
           present_date: "{{ state_attr('sensor.last_electricity_usage', 'present_date') }}"
           last_updated: "{{ state_attr('sensor.last_electricity_usage', 'last_updated') }}"
-        state_class: total
+        state_class: measurement
         unit_of_measurement: "kWh"
         device_class: energy
         
@@ -242,7 +242,7 @@ template:
       - name: yearly_electricity_usage_entity
         unique_id: yearly_electricity_usage_entity
         state: "{{ states('sensor.yearly_electricity_usage') }}"
-        state_class: total_increasing
+        state_class: total
         unit_of_measurement: "kWh"
         device_class: energy
 
@@ -255,7 +255,7 @@ template:
       - name: yearly_electricity_charge_entity
         unique_id: yearly_electricity_charge_entity
         state: "{{ states('sensor.yearly_electricity_charge') }}"
-        state_class: total_increasing
+        state_class: total
         unit_of_measurement: "CNY"
         device_class: monetary
 ```

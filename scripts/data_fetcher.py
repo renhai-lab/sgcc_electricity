@@ -33,8 +33,7 @@ class DataFetcher:
             # 将数据存储到数据库
             logging.debug("enable_database_storage为true，将会储存到数据库")
             self.test_mongodb_connection()
-            DB_NAME = os.getenv("DB_NAME")
-            self.db = self.client[DB_NAME] # 创建数据库
+            self.db = self.client[os.getenv("DB_NAME")] # 创建数据库
         else:
             # 将数据存储到其他介质，如文件或内存
             self.client = None
@@ -60,22 +59,30 @@ class DataFetcher:
         except Exception as e:
             logging.error("Failed to connect to MongoDB: " + str(e))
 
-    def create_collection(self, user_id):
-        """创建数据库和data索引"""
-        if self.db is not None:
-            try:
-                collection_name = f"electricity_daily_usage_{user_id}"
-                self.collection = self.db.create_collection(collection_name)
-                logging.info(f"集合: {collection_name} 创建成功")
-            except:
-                self.collection = self.db[collection_name]
-                logging.debug("集合: {collection_name} 集合已存在")
+    def connect_user_collection(self, user_id):
+        """创建数据库集合，collection_name = electricity_daily_usage_{user_id}
+        :param user_id: 用户ID"""
+        # 创建集合
+        collection_name = f"electricity_daily_usage_{user_id}"
+        try:
+            collection = self.db.create_collection(collection_name)
+            logging.info(f"集合: {collection_name} 创建成功")
+            self.create_col_index(collection)
+        # 如果集合已存在，则不会创建
+        except:
+            collection = self.db[collection_name]
+            logging.debug("集合: {collection_name} 集合已存在")
+        finally:
+            return collection
 
+    def create_col_index(self, collection):
+            # 创建索引
             try:
-                self.collection.create_index([('date', pymongo.DESCENDING)], unique=True)
+                collection.create_index([('date', pymongo.DESCENDING)], unique=True)
                 logging.info(f"创建索引'date'成功")
             except:
                 logging.debug("索引'date'已存在")
+
     def fetch(self):
         """the entry, only retry logic here """
         for retry_times in range(1, self.RETRY_TIMES_LIMIT + 1):
@@ -101,10 +108,8 @@ class DataFetcher:
             logging.info(f"Login successfully on {LOGIN_URL}")
 
             user_id_list = self._get_user_ids(driver)
-            logging.info(f"get all user id: {user_id_list}")
+            logging.info(f"将获取{len(user_id_list)}户数据，user_id: {user_id_list}")
 
-            for user_id in user_id_list:
-                self.create_collection(user_id) # 创建集合
 
             balance_list = self._get_electric_balances(driver, user_id_list)  #
             ### get data except electricity charge balance
@@ -227,7 +232,8 @@ class DataFetcher:
             last_daily_datetime, last_daily_usage = self._get_yesterday_usage(driver)
 
             # 新增储存30天用电量
-            self._save_daily_usage(driver, user_id_list[i - 1])
+            if self.client is not None:
+                self.save_30_days_usage(driver, user_id_list[i - 1])
 
             if last_daily_usage is None:
                 logging.error(f"Get daily power consumption for {user_id_list[i - 1]} failed, pass")
@@ -317,8 +323,8 @@ class DataFetcher:
             return None
 
     # 增加储存30天用电量的到mongodb的函数
-    def _save_daily_usage(self, driver, user_id):
-        # 30天用电量的按钮
+    def save_30_days_usage(self, driver, user_id):
+        """储存30天用电量"""
         self._click_button(driver, By.XPATH, "//*[@id='pane-second']/div[1]/label[2]/span[2]")
         # 等待30天用电量的数据出现
         usage_element = driver.find_element(By.XPATH,
@@ -328,20 +334,23 @@ class DataFetcher:
         days_element = driver.find_elements(By.XPATH,
                                             "//*[@id='pane-second']/div[2]/div[2]/div[1]/div[3]/table/tbody/tr")  # 30天的值 列表 2023-05-0511.98
 
-        collection_name = f"electricity_daily_usage_{user_id}"
-        collection = self.db[collection_name]
+
+        # 连接数据库集合
+        collection = self.connect_user_collection(user_id)
+
+        # 将30天的用电量保存为字典
         for i in days_element:
             day = i.find_element(By.XPATH, "td[1]/div").text
             usage = i.find_element(By.XPATH, "td[2]/div").text
             dic = {'date': day, 'usage': float(usage)}
-            if self.client is not None:
-                try:
-                    collection.insert_one(dic)
-                    logging.info(f"{day}的用电量{usage}KWh已经成功存入数据库")
-                except:
-                    logging.debug(f"{day}的用电量存入数据库失败,可能已经存在")
-            else:
-                logging.info(f"{day}的用电量{usage}KWh")
+            # 插入到数据库
+            try:
+                collection.insert_one(dic)
+                logging.info(f"{day}的用电量{usage}KWh已经成功存入数据库")
+            except:
+                logging.debug(f"{day}的用电量存入数据库失败,可能已经存在")
+
+
     @staticmethod
     def _click_button(driver, button_search_type, button_search_key):
         '''wrapped click function, click only when the element is clickable'''

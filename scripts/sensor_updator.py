@@ -34,7 +34,6 @@ class SensorUpdator:
                 "state": sensorState,
                 "attributes": {
                     "present_date": present_date,
-                    "last_updated": last_updated,
                     "unit_of_measurement": sensorUnit
                 }
             }
@@ -43,7 +42,6 @@ class SensorUpdator:
                 "state": sensorState,
                 "unique_id": sensorName,
                 "attributes": {
-                    "last_updated": last_updated,
                     "unit_of_measurement": sensorUnit
                 }
             }
