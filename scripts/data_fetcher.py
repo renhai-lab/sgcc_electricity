@@ -112,6 +112,7 @@ class DataFetcher:
 
 
             balance_list = self._get_electric_balances(driver, user_id_list)  #
+
             ### get data except electricity charge balance
             last_daily_date_list, last_daily_usage_list, yearly_charge_list, yearly_usage_list = self._get_other_data(driver, user_id_list)
 
@@ -197,7 +198,7 @@ class DataFetcher:
 
             # swtich to next userid
             if (i != len(user_id_list)):
-                self._click_button(driver, By.CLASS_NAME, "el-input__inner")
+                self._click_button(driver, By.CLASS_NAME, "el-input__suffix")
                 self._click_button(driver, By.XPATH,
                                    f"//ul[@class='el-scrollbar__view el-select-dropdown__list']/li[{i + 1}]")
 
@@ -248,7 +249,7 @@ class DataFetcher:
 
             # switch to next user id
             if i != len(user_id_list):
-                self._click_button(driver, By.CLASS_NAME, "el-input.el-input--suffix")
+                self._click_button(driver, By.CLASS_NAME, "el-input__suffix")
                 self._click_button(driver, By.XPATH,
                                    f"//body/div[@class='el-select-dropdown el-popper']//ul[@class='el-scrollbar__view el-select-dropdown__list']/li[{i + 1}]")
 
