@@ -33,7 +33,7 @@
 
 2. 不管是通过哪种哪种安装的homeassistant，只要可以运行python，有约1G硬盘空间和500M运行内存，都可以采用本仓库部署。
 
-> 本镜像支持架构：
+本镜像支持架构：
 >
 > - `linux/amd64`：适用于 x86-64（amd64）架构的 Linux 系统，例如windows电脑。
 > - `linux/arm64`：适用于 ARMv8 架构的 Linux 系统，例如树莓派，N1盒子。
