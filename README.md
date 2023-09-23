@@ -1,7 +1,6 @@
 # ⚡️国家电网电力获取 
 
 [![Docker Image CI](https://github.com/renhaiidea/sgcc_electricity/actions/workflows/docker-image.yml/badge.svg)](https://github.com/renhaiidea/sgcc_electricity/actions/workflows/docker-image.yml)
-[![Docker Image CI armv7](https://github.com/renhaiidea/sgcc_electricity/actions/workflows/docker-image-armv7.yml/badge.svg)](https://github.com/renhaiidea/sgcc_electricity/actions/workflows/docker-image-armv7.yml)
 [![Image Size](https://img.shields.io/docker/image-size/renhai/sgcc_electricity)](https://hub.docker.com/r/renhai/sgcc_electricity)
 [![Docker Pull](https://img.shields.io/docker/pulls/renhai/sgcc_electricity?color=%2348BB78&logo=docker&label=pulls)](https://hub.docker.com/r/renhai/sgcc_electricity)
 <p align="center">
@@ -38,8 +37,7 @@
 >
 > - `linux/amd64`：适用于 x86-64（amd64）架构的 Linux 系统，例如windows电脑。
 > - `linux/arm64`：适用于 ARMv8 架构的 Linux 系统，例如树莓派，N1盒子。
-> - `linux/arm/v7`：适用于 ARMv7 架构的 Linux 系统，例如玩客云。
-> - 其他架构移步[github仓库](https://github.com/renhaiidea/sgcc_electricity.git)自行build。
+> - 其他架构比如32位arm/v7，不提供docker镜像，可参考[github仓库](https://github.com/renhaiidea/sgcc_electricity.git)的[Dockerfile-for-github-action-armv7](%B9%E9%B5%B5%2FDockerfile-for-github-action-armv7)自行部署。
 
 ## 二、实现流程
 
