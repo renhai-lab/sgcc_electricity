@@ -112,7 +112,7 @@
          - .env
        depends_on:
          - mongo
-       image: renhai/sgcc_electricity:latest # armv7 32架构的镜像为armv7-latest
+       image: renhai/sgcc_electricity:latest
        container_name: sgcc_electricity
        networks:
          sgcc_network:
