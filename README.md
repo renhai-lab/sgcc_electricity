@@ -92,7 +92,7 @@
    FIRST_SLEEP_TIME=10 # 第一次运行等待时间，秒
    
    # 日志级别
-   LOG_LEVEL="INFO" # 例如“DUBUG”可以查看出错情况
+   LOG_LEVEL="INFO" # 例如“DEBUG”可以查看出错情况
    ```
 
 4. 编写docker-compose.yml文件
