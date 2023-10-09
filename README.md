@@ -179,11 +179,11 @@
    docker compose up -d --build
    ```
 
-### 3）方法三，不安装docker，安装python环境后直接运行：
+### 3）方法三：不安装docker，安装python环境后直接运行：
 
 克隆仓库之后,参考Dockerfile的命令，<u>自行配置安装chrome浏览器和selenium浏览器驱动</u>，安装mongodb，将example.env文件复制为.env文件到scripts文件夹下，然后运行main.py文件。
 
-### 3）使用可视化docker管理工具[portainer]([url](https://www.portainer.io/))部署：
+### 4）方法四：使用可视化docker管理工具[portainer]([url](https://www.portainer.io/))部署：
 
 方法见 [issue #26](https://github.com/renhai-lab/sgcc_electricity/issues/26#issuecomment-1752273119) 
 
