@@ -1,3 +1,5 @@
+**重要说明：**2023年10月20日:因国家电网网页频繁改动，作者没时间应对。项目已归档，想继续使用的可以自己去修改，但是本仓库不再更新。
+
 # ⚡️国家电网电力获取 
 
 [![Docker Image CI](https://github.com/renhaiidea/sgcc_electricity/actions/workflows/docker-image.yml/badge.svg)](https://github.com/renhaiidea/sgcc_electricity/actions/workflows/docker-image.yml)
