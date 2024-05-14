@@ -2,8 +2,6 @@
 
 **2023年10月20日**  本仓库已归档，不再更新。 
 
-
-
 ## 开发提示
 
 原项目通过python的selenium包获取国家电网的数据，通过homeassistant的提供的[REST API](https://developers.home-assistant.io/docs/api/rest/)将采用POST请求将实体状态更新到homeassistant，本质是一个爬虫任务。
@@ -16,9 +14,7 @@
 git checkout archive-main
 ```
 
-
-
 ## 其他可用项目
 
 1. 20240513：知乎网友[ARCW](https://www.zhihu.com/people/arcw)维护的仓库：**[sgcc_electricity_new](https://github.com/ARC-MX/sgcc_electricity_new)**。
-2. 20240513：[hassbian](https://bbs.hassbian.com/)论坛大佬[a.Dong](https://bbs.hassbian.com/home.php?mod=space&uid=49367) 发布的**HA集成版国家电网**，地址：https://bbs.hassbian.com/thread-25214-1-1.html。简单查看了下代码，请求响应网络接口实现数据获取，目前使用中，无任何问题。
+2. 20240513：[hassbian](https://bbs.hassbian.com/)论坛大佬[a.Dong](https://bbs.hassbian.com/home.php?mod=space&uid=49367) 发布的[HA集成版国家电网](https://bbs.hassbian.com/thread-25214-1-1.html)。简单查看了下代码，请求响应网络接口实现数据获取，目前使用中，无任何问题。
