@@ -17,4 +17,3 @@ git checkout archive-main
 ## 其他可用项目
 
 1. 20240513：知乎网友[ARCW](https://www.zhihu.com/people/arcw)维护的仓库：**[sgcc_electricity_new](https://github.com/ARC-MX/sgcc_electricity_new)**。
-2. 20240513：[hassbian](https://bbs.hassbian.com/)论坛大佬[a.Dong](https://bbs.hassbian.com/home.php?mod=space&uid=49367) 发布的[HA集成版国家电网](https://bbs.hassbian.com/thread-25214-1-1.html)。简单查看了下代码，请求响应网络接口实现数据获取，目前使用中，无任何问题。
